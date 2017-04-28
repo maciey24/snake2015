@@ -1,0 +1,16 @@
+propozycje rozwoju:
+
+-usun¹æ bugi:
+	-wyciek pamiêci w wynikach
+	-zmniejszyæ obci¹¿enie procesora?
+
+-instrukcje - bezpoœrednio w menu gry
+
+-ustawianie rozmiaru planszy w grze
+
+-dodaæ instalator do gry xD
+
+-sterowanie za pomoc¹ myszy xDDD
+
+-AI by w¹¿ gra³ sam xDDDDDDDDDD
+
