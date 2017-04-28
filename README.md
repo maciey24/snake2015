@@ -1,5 +1,23 @@
 # snake2015
 gra snake pobi c++ sdl programowanie obiektowe politechnika łódzka ftims
+
+tldr - skrócona wersja instrukcji:
+-sklonuj repo
+-pobierz 
+	SDL2-2.0.5
+	SDL2_mixer-2.0.1
+	SDL2_ttf-2.0.14
+do C:/SDL/
+-wklej
+	"C:\SDL\SDL2_mixer-2.0.1\i686-w64-mingw32\bin\SDL2_mixer.dll"
+	"C:\SDL\SDL2_ttf-2.0.14\i686-w64-mingw32\bin\libfreetype-6.dll"
+	"C:\SDL\SDL2_ttf-2.0.14\i686-w64-mingw32\bin\SDL2_ttf.dll"
+	"C:\SDL\SDL2-2.0.5\i686-w64-mingw32\bin\SDL2.dll"
+do katalogu projektu (repo)
+-powinno działać
+
+-------------------------------------------------------------------------------
+
 konfiguracja IDE codeblocks z sdl:
 
 mamy ściągnięte:
