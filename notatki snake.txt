@@ -1,8 +1,9 @@
 propozycje rozwoju:
 
 -usun¹æ bugi:
-	-wyciek pamiêci w wynikach
+	-wyciek pamiêci w wynikach - fixd
 	-zmniejszyæ obci¹¿enie procesora?
+	-³adowanie obrazków jest jeden na drugi - ten pod spodem nie jest dealokowany czy coœ
 
 -instrukcje - bezpoœrednio w menu gry
 
