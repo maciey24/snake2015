@@ -271,7 +271,7 @@ bool UI::sdlInit()
             cout << "Uwaga: Liniowe filtrowanie tekstur nie jest wlaczone!" << endl;
         }
         //Utworzenie okna
-        window = SDL_CreateWindow( "Snake", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, screenWidth, screenHeight, SDL_WINDOW_SHOWN );
+        window = SDL_CreateWindow( "Snake", 25, 40, screenWidth, screenHeight, SDL_WINDOW_SHOWN ); // 2 i 3 argument to pozycja okna - latwiej debugowac jesli otworzysz menedzer zadan obok
         if( window == NULL )
         {
             cout << "Nie mozna utworzyc okna! SDL_Error: " << SDL_GetError() << endl;
