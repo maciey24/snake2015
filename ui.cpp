@@ -1,4 +1,4 @@
-ï»¿#include <iostream>
+#include <iostream>
 #include <string>
 #include <sstream>
 #include <fstream>
@@ -12,7 +12,7 @@ using namespace std;
 
 UI::UI()
     :
-      menuOption(1),
+      menuOption(1), //ta smienna jest nieuzywana nigdzie? xD
       pauseOption(3),
       optionsOption(1),
       key('d'),
@@ -170,7 +170,7 @@ void UI::sdlMain()
     }
     else
     {
-        //Wczytywanie obrazkÃ³w
+        //Wczytywanie obrazków
         if( !sdlLoadMedia() )
         {
             cout << "Failed to load media!" << endl;
@@ -199,19 +199,19 @@ void UI::sdlMain()
                                 case 'w':
                                 case 'W':
                                 case SDLK_UP:
-                                if(menu>0)
-                                    menu--;
-                                break;
+                                    if(menu>0)
+                                        menu--;
+                                    break;
                                 case 's':
                                 case 'S':
                                 case SDLK_DOWN:
-                                if(menu<5)
-                                    menu++;
-                                break;
+                                    if(menu<5)
+                                        menu++;
+                                    break;
                                 case 13:
-                                //case ' ':
-                                selectedMenu = menu;
-                                break;
+                                    //case ' ':
+                                    selectedMenu = menu;
+                                    break;
                             }
                             currentSurface = menuSurfaces[menu];
                         }
@@ -609,7 +609,7 @@ void UI::sdlDrawMap(Map *map)
         while( SDL_PollEvent( &event ) != 0)
         {
             sdlSetKey();
-            //UÅ¼ytkownik nacisnÄ…Å‚ X
+            //U¿ytkownik nacisn¹³ X
 //            if( event.type == SDL_QUIT )
 //            {
 //                quit = true;
@@ -617,7 +617,7 @@ void UI::sdlDrawMap(Map *map)
         }
         if(!(game->getPaused()))
         {
-            //To dziaÅ‚a w tym miejscu, tylko ten break...
+            //To dzia³a w tym miejscu, tylko ten break...
             if( event.type == SDL_QUIT )
             {
                 quit = true;
@@ -632,8 +632,8 @@ void UI::sdlDrawMap(Map *map)
             {
                 for(int j=0;j<map->getWidth();j++)
                 {
-                    //Obliczanie wspÃ³Å‚rzÄ™dnych kolejnych kwadratÃ³w, bÄ™dÄ…cych elementami mapy
-                    //ZaleÅ¼nie od elementu rysowany jest kwadrat w innym kolorze
+                    //Obliczanie wspó³rzêdnych kolejnych kwadratów, bêd¹cych elementami mapy
+                    //Zale¿nie od elementu rysowany jest kwadrat w innym kolorze
                     SDL_Rect fillRect = {(j)*((screenWidth-200)/map->getWidth()), (i)*(screenHeight/map->getHeight()), (screenWidth-200)/map->getWidth()-2, (screenHeight/map->getHeight())-2};
                     if(map->getField(j,i)==empty)
                     {
@@ -688,19 +688,19 @@ void UI::sdlDrawMap(Map *map)
             SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
             SDL_RenderFillRect(renderer, &fillBg);
 
-            //WyÅ›wietlenie napisu wynik
+            //Wyœwietlenie napisu wynik
             scoreTextSurface = TTF_RenderText_Solid(fontEhsmb,"WYNIK",textColor);
             scoreTextTexture = SDL_CreateTextureFromSurface(renderer, scoreTextSurface);
             SDL_Rect scoreRect = {(screenWidth-180),20,160,50};
             SDL_RenderCopy(renderer, scoreTextTexture, NULL, &scoreRect);
 
-            //WyÅ›wietlanie wyniku
+            //Wyœwietlanie wyniku
             scoreSurface = TTF_RenderText_Solid(fontEhsmb,scoreToCharPtr(game->getScore()),textColor);
             scoreTexture = SDL_CreateTextureFromSurface(renderer, scoreSurface);
             SDL_Rect scoreRect2 = {(screenWidth-180),80,160,50};
             SDL_RenderCopy(renderer, scoreTexture, NULL, &scoreRect2);
 
-            //WyÅ›wietlanie iloÅ›ci Å¼yÄ‡
+            //Wyœwietlanie iloœci ¿yæ
             livesTexture = SDL_CreateTextureFromSurface(renderer,livesSurface);
             for(int i=0;i<game->getSnake()->getLives();i++)
             {
@@ -718,7 +718,7 @@ void UI::sdlDrawMap(Map *map)
             //SDL_FreeSurface(scoreTextSurface);
 
 
-            //Linia oddzielajÄ…ca mapÄ™ od reszty ekranu
+            //Linia oddzielaj¹ca mapê od reszty ekranu
             SDL_SetRenderDrawColor(renderer, 0, 0, 145, 0);
             SDL_RenderDrawLine(renderer, (screenWidth-200), 0, (screenWidth-200), screenHeight);
 
@@ -751,27 +751,28 @@ void UI::sdlScoreboard()
     //Wyczyszczenie ekranu
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
     SDL_RenderClear(renderer);
+
+    for(int i=0;i<10;i++) // ta petle wystarczylo wyjac z ponizszej petli do while, by nie przydzielalo pamieci w nieskonczonosc
+    {
+        scoreboardSurface = TTF_RenderText_Solid(fontEhsmb, intToCharPtr(i+1),textColor);
+        scoreboardTexture = SDL_CreateTextureFromSurface(renderer, scoreboardSurface);
+        SDL_Rect scoreboardRect = {((screenWidth/4)-50),(50+(i*50)),25,50};
+        SDL_RenderCopy(renderer, scoreboardTexture, NULL, &scoreboardRect);
+        scoreboardSurface = TTF_RenderText_Solid(fontEhsmb, scoreToCharPtr(tab[i]),textColor);
+        scoreboardTexture = SDL_CreateTextureFromSurface(renderer, scoreboardSurface);
+        SDL_Rect scoreboardRect2 = {(screenWidth/4),(50+(i*50)),(screenWidth/2),50};
+        SDL_RenderCopy(renderer, scoreboardTexture, NULL, &scoreboardRect2);
+    }
+
+    //Aktualizacja wyswietlania
+    SDL_RenderPresent(renderer);
+
     do
     {
         while( SDL_PollEvent( &event ) != 0)
         {
             sdlSetKey();
         }
-
-        for(int i=0;i<10;i++)
-        {
-            scoreboardSurface = TTF_RenderText_Solid(fontEhsmb, intToCharPtr(i+1),textColor);
-            scoreboardTexture = SDL_CreateTextureFromSurface(renderer, scoreboardSurface);
-            SDL_Rect scoreboardRect = {((screenWidth/4)-50),(50+(i*50)),25,50};
-            SDL_RenderCopy(renderer, scoreboardTexture, NULL, &scoreboardRect);
-            scoreboardSurface = TTF_RenderText_Solid(fontEhsmb, scoreToCharPtr(tab[i]),textColor);
-            scoreboardTexture = SDL_CreateTextureFromSurface(renderer, scoreboardSurface);
-            SDL_Rect scoreboardRect2 = {(screenWidth/4),(50+(i*50)),(screenWidth/2),50};
-            SDL_RenderCopy(renderer, scoreboardTexture, NULL, &scoreboardRect2);
-        }
-
-        //Aktualizacja wyswietlania
-        SDL_RenderPresent(renderer);
     }
     while(sdlKey!=SDLK_ESCAPE);
 
@@ -795,7 +796,7 @@ void UI::sdlOptionsMenu()
             SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
             SDL_RenderClear(renderer);
 
-                //UÅ¼ytkownik nacisnÄ…Å‚ X
+                //U¿ytkownik nacisn¹³ X
 //                if( event.type == SDL_QUIT )
 //                {
 //                    quit = true;
@@ -835,7 +836,7 @@ void UI::sdlOptionsMenu()
                 SDL_Rect optionsRect4 = {((screenWidth/4)-20)+210,160,200,50};
                 SDL_RenderCopy(renderer, optionsTextTexture4, NULL, &optionsRect4);
 
-                //czyszczenie pamiÄ™ci
+                //czyszczenie pamiêci
                 SDL_FreeSurface(optionsPtrSurface);
                 SDL_FreeSurface(optionsTextSurface1);
                 SDL_FreeSurface(optionsTextSurface2);
@@ -883,7 +884,7 @@ void UI::sdlPauseMenu()
             while( SDL_PollEvent( &event ) != 0)
             {
                 sdlSetKey();
-                //UÅ¼ytkownik nacisnÄ…Å‚ X
+                //U¿ytkownik nacisn¹³ X
                 if( event.type == SDL_QUIT )
                 {
                     quit = true;
