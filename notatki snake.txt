@@ -15,3 +15,6 @@ propozycje rozwoju:
 
 -AI by w¹¿ gra³ sam xDDDDDDDDDD
 
+-przeszkody jako.. obiekty 
+
+-menu animowane a nie .bmp
