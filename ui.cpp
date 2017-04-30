@@ -28,6 +28,7 @@ UI::UI()
       moveSound(NULL),
       eatSound(NULL),
       gameOverSound(NULL),
+      speedUpSound(NULL),
       levelUpSound(NULL),
       lostLiveSound(NULL),
       textColor({0,192,0}),
@@ -446,6 +447,13 @@ bool UI::sdlLoadMedia()
         success = false;
     }
 
+    speedUpSound = Mix_LoadWAV("Sounds/speedup.wav");
+    if(speedUpSound == NULL)
+    {
+        cout << "Nie mozna zaladowac dzwieku!" << endl;
+        success = false;
+    }
+
     //LevelUp Sound
     levelUpSound = Mix_LoadWAV("Sounds/levelup.wav");
     if(levelUpSound == NULL)
@@ -543,12 +551,14 @@ void UI::sdlClose()
     Mix_FreeChunk(moveSound);
     Mix_FreeChunk(eatSound);
     Mix_FreeChunk(gameOverSound);
+    Mix_FreeChunk(speedUpSound);
     Mix_FreeChunk(levelUpSound);
     Mix_FreeChunk(lostLiveSound);
 
     moveSound = NULL;
     eatSound = NULL;
     gameOverSound = NULL;
+    speedUpSound = NULL;
     levelUpSound = NULL;
     lostLiveSound = NULL;
 
@@ -1024,4 +1034,9 @@ void UI::sdlPlayEatSound()
 void UI::sdlPlayLostLiveSound()
 {
     Mix_PlayChannel(-1,lostLiveSound,0);
+}
+
+void UI::sdlPlaySpeedSound()
+{
+    Mix_PlayChannel(-1,speedUpSound,0);
 }

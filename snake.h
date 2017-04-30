@@ -24,6 +24,7 @@ enum collisionType
 class Map;
 class SnakeElem;
 class Food;
+class Game;
 
 class Snake
 {

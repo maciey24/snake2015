@@ -59,6 +59,7 @@ private:
     Mix_Chunk *gameOverSound;
     Mix_Chunk *levelUpSound;
     Mix_Chunk *lostLiveSound;
+    Mix_Chunk *speedUpSound;
     //SDL TTF
     TTF_Font *fontEhsmb;
     TTF_Font *fontArial;
@@ -113,6 +114,7 @@ public:
     void sdlPlayMoveSound();
     void sdlPlayEatSound();
     void sdlPlayLostLiveSound();
+    void sdlPlaySpeedSound();
 };
 
 

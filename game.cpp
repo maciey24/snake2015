@@ -84,10 +84,13 @@ bool Game::game()
     {
         //Dobieranie opóźnienia zegara do prędkości węża-62*x+582
         if(snake->getTurboSteps()>0)
+        {
             clockLatency = 80;
+        }
         else
+        {
             clockLatency = (-62*(snake->getSpeed())+582)*(snake->getSpeed()/(snake->getSteps()+1)+1);
-
+        }
         //Spawnowanie jedzenia
         if(!(food->getSpawned()))
             spawnFood();
@@ -100,8 +103,7 @@ bool Game::game()
             {
                 ui->key2action();
                 snake->move();
-                if(soundsEnabled)
-                    ui->sdlPlayMoveSound();
+                if(soundsEnabled) ui->sdlPlayMoveSound();
                 startTime = clock(); //zresetowanie zegara
                 snake->setSteps(snake->getSteps()+1);
                 if(stepsCountdown>0)
@@ -132,9 +134,15 @@ bool Game::game()
 
             if(snake->getCollision()==FOOD_COL)
             {
+                if(food->getType()==BANANA)
+                {
+                    if(soundsEnabled)
+                    {
+                        ui->sdlPlaySpeedSound();
+                    }
+                }
                 snake->eat(food);
-                if(soundsEnabled)
-                    ui->sdlPlayEatSound();
+                if(soundsEnabled) ui->sdlPlayEatSound();
                 if(score<9999990)
                 score+=10;
                 else

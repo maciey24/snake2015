@@ -30,6 +30,7 @@ public:
     inline int getLiveshModifier(){return livesModifier;}
     void spawn();
     void setType();
+    foodType getType(){return type;}
     inline void remove(){(*map)(x,y) = empty;spawned=false;}
     inline void replace(){(*map)(x,y) = snakebody;spawned=false;}
 };
