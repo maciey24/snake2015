@@ -530,8 +530,8 @@ void UI::sdlClose()
     SDL_FreeSurface(gameOverSurface);
     SDL_FreeSurface(gameSavedSurface);
 
-    SDL_FreeSurface(scoreSurface);
-    SDL_FreeSurface(scoreTextSurface);
+//    SDL_FreeSurface(scoreSurface);
+//    SDL_FreeSurface(scoreTextSurface);
     SDL_FreeSurface(livesSurface);
     SDL_FreeSurface(scoreboardSurface);
     //Surface'y menu opcji zwalniane są zawsze na końcu pętli menu opcji
@@ -579,9 +579,9 @@ void UI::sdlClose()
     lostLiveSound = NULL;
 
     //Czyszczenie tekstur
-    SDL_DestroyTexture(scoreTexture);
-    SDL_DestroyTexture(scoreTextTexture);
-    SDL_DestroyTexture(livesTexture);
+//    SDL_DestroyTexture(scoreTexture);
+//    SDL_DestroyTexture(scoreTextTexture);
+//    SDL_DestroyTexture(livesTexture);
     SDL_DestroyTexture(scoreboardTexture);
     //Tekstury są niszczone zawsze na końcu pętli menu opcji
 //    SDL_DestroyTexture(optionsTextTexture1);
@@ -735,15 +735,12 @@ void UI::sdlDrawMap(Map *map)
                 SDL_RenderCopy(renderer, livesTexture, NULL, &livesRect);
             }
 
+            SDL_FreeSurface(scoreTextSurface);
+            SDL_FreeSurface(scoreSurface);
+
             SDL_DestroyTexture(scoreTextTexture);
             SDL_DestroyTexture(scoreTexture);
             SDL_DestroyTexture(livesTexture);
-
-
-            SDL_FreeSurface(scoreTextSurface);
-            SDL_FreeSurface(scoreSurface);
-            //SDL_FreeSurface(scoreTextSurface);
-
 
             //Linia oddzielaj¹ca mapê od reszty ekranu
             SDL_SetRenderDrawColor(renderer, 0, 0, 145, 0);
