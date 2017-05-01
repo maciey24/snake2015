@@ -23,6 +23,7 @@ UI::UI()
       selectedMenu(-1),
       window(NULL),
       screen(NULL),
+      icon(NULL),
       currentSurface(NULL),
       renderer(NULL),
       moveSound(NULL),
@@ -178,6 +179,9 @@ void UI::sdlMain()
         }
         else
         {
+            // Ustawienie ikony okna
+            SDL_SetWindowIcon(window, icon);
+
             //Ustawienie obecnego obrazu na pierwszy obrazek z menu
             currentSurface = menuSurfaces[ MENU_SURFACE1 ];
             while( !quit )
@@ -310,6 +314,9 @@ bool UI::sdlLoadMedia()
 {
     //Powodzenie zaladowania plikow
     bool success = true;
+
+    //Ikona
+    icon = loadSurface( "Graphics/icon.bmp" );
 
     //Menu1
     menuSurfaces[ MENU_SURFACE1 ] = loadSurface( "Graphics/menu1.bmp" );
@@ -506,7 +513,8 @@ void UI::sdlClose()
         menuSurfaces[i] = NULL;
     }
     SDL_FreeSurface(screen);
-    //SDL_FreeSurface(currentSurface);
+    SDL_FreeSurface(icon);
+    SDL_FreeSurface(currentSurface);
     SDL_FreeSurface(authorsSurface);
     SDL_FreeSurface(pauseSurface1);
     SDL_FreeSurface(pauseSurface2);
@@ -527,6 +535,7 @@ void UI::sdlClose()
     SDL_FreeSurface(optionsPtrSurface);
 
     screen = NULL;
+    icon = NULL;
     currentSurface = NULL;
     authorsSurface = NULL;
     pauseSurface1 = NULL;
