@@ -15,5 +15,6 @@ int main(int argc, char *argv[])
     UI *ui = new UI();
 
     ui->sdlMain();
+
     return 0;
 }

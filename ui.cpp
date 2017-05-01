@@ -172,7 +172,7 @@ void UI::sdlMain()
     }
     else
     {
-        //Wczytywanie obrazków
+        //Wczytywanie obrazkÃ³w
         if( !sdlLoadMedia() )
         {
             cout << "Failed to load media!" << endl;
@@ -254,6 +254,7 @@ void UI::sdlMain()
             }
         }
     }
+
     //Zwolnienie zasobow, zamkniecie SDLa
     sdlClose();
 }
@@ -518,7 +519,7 @@ void UI::sdlClose()
     }
     SDL_FreeSurface(screen);
     SDL_FreeSurface(icon);
-    SDL_FreeSurface(currentSurface);
+    //SDL_FreeSurface(currentSurface); //nie moÅ¼na zwolniÄ‡ currentSurface, poniewaÅ¼ currentSurface wskazuje na ktÃ³ryÅ› z menuSurface, ktÃ³re sÄ… zwalniane wczeÅ›niej, czyli nullptr
     SDL_FreeSurface(authorsSurface);
     SDL_FreeSurface(pauseSurface1);
     SDL_FreeSurface(pauseSurface2);
@@ -632,7 +633,7 @@ void UI::sdlDrawMap(Map *map)
         while( SDL_PollEvent( &event ) != 0)
         {
             sdlSetKey();
-            //U¿ytkownik nacisn¹³ X
+            //UÂ¿ytkownik nacisnÂ¹Â³ X
 //            if( event.type == SDL_QUIT )
 //            {
 //                quit = true;
@@ -640,7 +641,7 @@ void UI::sdlDrawMap(Map *map)
         }
         if(!(game->getPaused()))
         {
-            //To dzia³a w tym miejscu, tylko ten break...
+            //To dziaÂ³a w tym miejscu, tylko ten break...
             if( event.type == SDL_QUIT )
             {
                 quit = true;
@@ -655,8 +656,8 @@ void UI::sdlDrawMap(Map *map)
             {
                 for(int j=0;j<map->getWidth();j++)
                 {
-                    //Obliczanie wspó³rzêdnych kolejnych kwadratów, bêd¹cych elementami mapy
-                    //Zale¿nie od elementu rysowany jest kwadrat w innym kolorze
+                    //Obliczanie wspÃ³Â³rzÃªdnych kolejnych kwadratÃ³w, bÃªdÂ¹cych elementami mapy
+                    //ZaleÂ¿nie od elementu rysowany jest kwadrat w innym kolorze
                     SDL_Rect fillRect = {(j)*((screenWidth-200)/map->getWidth()), (i)*(screenHeight/map->getHeight()), (screenWidth-200)/map->getWidth()-2, (screenHeight/map->getHeight())-2};
                     if(map->getField(j,i)==empty)
                     {
@@ -711,19 +712,19 @@ void UI::sdlDrawMap(Map *map)
             SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
             SDL_RenderFillRect(renderer, &fillBg);
 
-            //Wyœwietlenie napisu wynik
+            //WyÅ“wietlenie napisu wynik
             scoreTextSurface = TTF_RenderText_Solid(fontEhsmb,"WYNIK",textColor);
             scoreTextTexture = SDL_CreateTextureFromSurface(renderer, scoreTextSurface);
             SDL_Rect scoreRect = {(screenWidth-180),20,160,50};
             SDL_RenderCopy(renderer, scoreTextTexture, NULL, &scoreRect);
 
-            //Wyœwietlanie wyniku
+            //WyÅ“wietlanie wyniku
             scoreSurface = TTF_RenderText_Solid(fontEhsmb,scoreToCharPtr(game->getScore()),textColor);
             scoreTexture = SDL_CreateTextureFromSurface(renderer, scoreSurface);
             SDL_Rect scoreRect2 = {(screenWidth-180),80,160,50};
             SDL_RenderCopy(renderer, scoreTexture, NULL, &scoreRect2);
 
-            //Wyœwietlanie iloœci ¿yæ
+            //WyÅ“wietlanie iloÅ“ci Â¿yÃ¦
             livesTexture = SDL_CreateTextureFromSurface(renderer,livesSurface);
             for(int i=0;i<game->getSnake()->getLives();i++)
             {
@@ -741,7 +742,7 @@ void UI::sdlDrawMap(Map *map)
             //SDL_FreeSurface(scoreTextSurface);
 
 
-            //Linia oddzielaj¹ca mapê od reszty ekranu
+            //Linia oddzielajÂ¹ca mapÃª od reszty ekranu
             SDL_SetRenderDrawColor(renderer, 0, 0, 145, 0);
             SDL_RenderDrawLine(renderer, (screenWidth-200), 0, (screenWidth-200), screenHeight);
 
@@ -819,7 +820,7 @@ void UI::sdlOptionsMenu()
             SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
             SDL_RenderClear(renderer);
 
-                //U¿ytkownik nacisn¹³ X
+                //UÂ¿ytkownik nacisnÂ¹Â³ X
 //                if( event.type == SDL_QUIT )
 //                {
 //                    quit = true;
@@ -859,7 +860,7 @@ void UI::sdlOptionsMenu()
                 SDL_Rect optionsRect4 = {((screenWidth/4)-20)+210,160,200,50};
                 SDL_RenderCopy(renderer, optionsTextTexture4, NULL, &optionsRect4);
 
-                //czyszczenie pamiêci
+                //czyszczenie pamiÃªci
                 SDL_FreeSurface(optionsPtrSurface);
                 SDL_FreeSurface(optionsTextSurface1);
                 SDL_FreeSurface(optionsTextSurface2);
@@ -907,7 +908,7 @@ void UI::sdlPauseMenu()
             while( SDL_PollEvent( &event ) != 0)
             {
                 sdlSetKey();
-                //U¿ytkownik nacisn¹³ X
+                //UÂ¿ytkownik nacisnÂ¹Â³ X
                 if( event.type == SDL_QUIT )
                 {
                     quit = true;
