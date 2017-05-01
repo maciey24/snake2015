@@ -41,6 +41,7 @@ private:
     SDL_Keycode sdlKey;
     SDL_Window *window;
     SDL_Surface *screen;
+    SDL_Surface *icon;
     SDL_Surface *currentSurface;
     SDL_Surface *menuSurfaces[MENU_SURFACE_TOTAL];
     SDL_Surface *authorsSurface;
