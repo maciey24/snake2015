@@ -36,5 +36,6 @@
 scores.txt
 save.bin
 
-# Build folder
+# Build folders
 bin
+obj
