@@ -33,6 +33,7 @@ UI::UI()
       levelUpSound(NULL),
       lostLiveSound(NULL),
       textColor({0,192,0}),
+      markerColor({255,0,0}),
       quit(false)
 
 //      #TODO - init. buffer?
@@ -489,9 +490,9 @@ bool UI::sdlLoadMedia()
         cout << "Nie mozna zaladowac czcionki!" << endl;
         success = false;
     }
-    //Arial Font
-    fontArial = TTF_OpenFont("Fonts/arial.ttf",72);
-    if(fontArial == NULL)
+    //Pixeled Font
+    fontPixeled = TTF_OpenFont("Fonts/pixeled.ttf",72);
+    if(fontPixeled == NULL)
     {
         cout << "Nie mozna zaladowac czcionki!" << endl;
         success = false;
@@ -533,11 +534,12 @@ void UI::sdlClose()
     SDL_FreeSurface(scoreTextSurface);
     SDL_FreeSurface(livesSurface);
     SDL_FreeSurface(scoreboardSurface);
-    SDL_FreeSurface(optionsTextSurface1);
-    SDL_FreeSurface(optionsTextSurface2);
-    SDL_FreeSurface(optionsTextSurface3);
-    SDL_FreeSurface(optionsTextSurface4);
-    SDL_FreeSurface(optionsPtrSurface);
+    //Surface'y menu opcji zwalniane są zawsze na końcu pętli menu opcji
+//    SDL_FreeSurface(optionsTextSurface1);
+//    SDL_FreeSurface(optionsTextSurface2);
+//    SDL_FreeSurface(optionsTextSurface3);
+//    SDL_FreeSurface(optionsTextSurface4);
+//    SDL_FreeSurface(optionsPtrSurface);
 
     screen = NULL;
     icon = NULL;
@@ -581,11 +583,12 @@ void UI::sdlClose()
     SDL_DestroyTexture(scoreTextTexture);
     SDL_DestroyTexture(livesTexture);
     SDL_DestroyTexture(scoreboardTexture);
-    SDL_DestroyTexture(optionsTextTexture1);
-    SDL_DestroyTexture(optionsTextTexture2);
-    SDL_DestroyTexture(optionsTextTexture3);
-    SDL_DestroyTexture(optionsTextTexture4);
-    SDL_DestroyTexture(optionsPtrTexture);
+    //Tekstury są niszczone zawsze na końcu pętli menu opcji
+//    SDL_DestroyTexture(optionsTextTexture1);
+//    SDL_DestroyTexture(optionsTextTexture2);
+//    SDL_DestroyTexture(optionsTextTexture3);
+//    SDL_DestroyTexture(optionsTextTexture4);
+//    SDL_DestroyTexture(optionsPtrTexture);
 
     scoreTexture = NULL;
     scoreTextTexture = NULL;
@@ -599,10 +602,10 @@ void UI::sdlClose()
 
     //Czyszczenie TTF
     TTF_CloseFont(fontEhsmb);
-    TTF_CloseFont(fontArial);
+    TTF_CloseFont(fontPixeled);
 
     fontEhsmb = NULL;
-    fontArial = NULL;
+    fontPixeled = NULL;
 
     //Niszczenie renderera i okna
     SDL_DestroyRenderer(renderer);
@@ -713,7 +716,7 @@ void UI::sdlDrawMap(Map *map)
             SDL_RenderFillRect(renderer, &fillBg);
 
             //Wyœwietlenie napisu wynik
-            scoreTextSurface = TTF_RenderText_Solid(fontEhsmb,"WYNIK",textColor);
+            scoreTextSurface = TTF_RenderText_Solid(fontEhsmb,"SCORE",textColor);
             scoreTextTexture = SDL_CreateTextureFromSurface(renderer, scoreTextSurface);
             SDL_Rect scoreRect = {(screenWidth-180),20,160,50};
             SDL_RenderCopy(renderer, scoreTextTexture, NULL, &scoreRect);
@@ -825,48 +828,54 @@ void UI::sdlOptionsMenu()
 //                {
 //                    quit = true;
 //                }
-            optionsPtrSurface = TTF_RenderText_Solid(fontArial, ">",textColor);
+            optionsPtrSurface = TTF_RenderText_Solid(fontPixeled, "-",markerColor);
             optionsPtrTexture = SDL_CreateTextureFromSurface(renderer, optionsPtrSurface);
             if(optionsOption==1)
             {
-                SDL_Rect optionsPtrRect1 = {((screenWidth/4)-50),100,25,50};
+                SDL_Rect optionsPtrRect1 = {((screenWidth/4)-50),100,25,75};
                 SDL_RenderCopy(renderer, optionsPtrTexture, NULL, &optionsPtrRect1);
             }
             if(optionsOption==2)
             {
-                SDL_Rect optionsPtrRect1 = {((screenWidth/4)-50),160,25,50};
+                SDL_Rect optionsPtrRect1 = {((screenWidth/4)-50),160,25,75};
                 SDL_RenderCopy(renderer, optionsPtrTexture, NULL, &optionsPtrRect1);
             }
-                optionsTextSurface1 = TTF_RenderText_Solid(fontArial, "Poziom trudnosci:",textColor);
+                optionsTextSurface1 = TTF_RenderText_Solid(fontPixeled, "Difficulty:",textColor);
                 optionsTextTexture1 = SDL_CreateTextureFromSurface(renderer, optionsTextSurface1);
-                SDL_Rect optionsRect1 = {((screenWidth/4)-20),100,200,50};
+                SDL_Rect optionsRect1 = {((screenWidth/4)-20),100,200,75};
                 SDL_RenderCopy(renderer, optionsTextTexture1, NULL, &optionsRect1);
 
-                optionsTextSurface2 = TTF_RenderText_Solid(fontArial, intToCharPtr(game->getDifficulty()),textColor);
+                switch(game->getDifficulty())
+                {
+                    case 1: optionsTextSurface2 = TTF_RenderText_Solid(fontPixeled, "Easy" ,textColor); break;
+                    case 2: optionsTextSurface2 = TTF_RenderText_Solid(fontPixeled, "Medium" ,textColor); break;
+                    case 3: optionsTextSurface2 = TTF_RenderText_Solid(fontPixeled, "Hard" ,textColor); break;
+                    default: optionsTextSurface2 = TTF_RenderText_Solid(fontPixeled, "Null" ,textColor); break;
+                }
                 optionsTextTexture2 = SDL_CreateTextureFromSurface(renderer, optionsTextSurface2);
-                SDL_Rect optionsRect2 = {((screenWidth/4)-20)+210,100,25,50};
+                SDL_Rect optionsRect2 = {((screenWidth/4)-20)+210,100,150,75};
                 SDL_RenderCopy(renderer, optionsTextTexture2, NULL, &optionsRect2);
 
-                optionsTextSurface3 = TTF_RenderText_Solid(fontArial, "Dzwieki:", textColor);
+                optionsTextSurface3 = TTF_RenderText_Solid(fontPixeled, "Sounds:", textColor);
                 optionsTextTexture3 = SDL_CreateTextureFromSurface(renderer, optionsTextSurface3);
-                SDL_Rect optionsRect3 = {((screenWidth/4)-20),160,200,50};
+                SDL_Rect optionsRect3 = {((screenWidth/4)-20),160,200,75};
                 SDL_RenderCopy(renderer, optionsTextTexture3, NULL, &optionsRect3);
 
                 if(game->getSoundsEnabled())
-                    optionsTextSurface4 = TTF_RenderText_Solid(fontArial, "Wlaczone", textColor);
+                    optionsTextSurface4 = TTF_RenderText_Solid(fontPixeled, "On", textColor);
                 else
-                    optionsTextSurface4 = TTF_RenderText_Solid(fontArial, "Wylaczone", textColor);
+                    optionsTextSurface4 = TTF_RenderText_Solid(fontPixeled, "Off", textColor);
                 optionsTextTexture4 = SDL_CreateTextureFromSurface(renderer, optionsTextSurface4);
-                SDL_Rect optionsRect4 = {((screenWidth/4)-20)+210,160,200,50};
+                SDL_Rect optionsRect4 = {((screenWidth/4)-20)+210,160,100,75};
                 SDL_RenderCopy(renderer, optionsTextTexture4, NULL, &optionsRect4);
 
-                //czyszczenie pamiêci
+                //Zwalnianie zasobów przydzielonych powierzchnią (nie może być wykonywane po raz kolejny w sdlClose())
                 SDL_FreeSurface(optionsPtrSurface);
                 SDL_FreeSurface(optionsTextSurface1);
                 SDL_FreeSurface(optionsTextSurface2);
                 SDL_FreeSurface(optionsTextSurface3);
                 SDL_FreeSurface(optionsTextSurface4);
-
+                //Niszczenie tekstur (nie może być wykonywane po raz kolejny w sdlClose())
                 SDL_DestroyTexture(optionsPtrTexture);
                 SDL_DestroyTexture(optionsTextTexture1);
                 SDL_DestroyTexture(optionsTextTexture2);

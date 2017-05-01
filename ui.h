@@ -63,7 +63,7 @@ private:
     Mix_Chunk *speedUpSound;
     //SDL TTF
     TTF_Font *fontEhsmb;
-    TTF_Font *fontArial;
+    TTF_Font *fontPixeled;
     SDL_Surface *scoreSurface;
     SDL_Surface *scoreTextSurface;
     SDL_Surface *livesSurface;
@@ -83,6 +83,7 @@ private:
     SDL_Texture *optionsTextTexture4;
     SDL_Texture *optionsPtrTexture;
     SDL_Color textColor;
+    SDL_Color markerColor;
     bool quit;
 public:
     UI();
