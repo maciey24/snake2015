@@ -79,7 +79,7 @@ void UI::readBuffer()
     if(compTabs(buffer, "longint")){game->getSnake()->setToAdd(10); key2buffer(' ', buffer);}
     if(compTabs(buffer, "endgame")){game->getSnake()->setLives(-1); key2buffer(' ', buffer);}
     if(compTabs(buffer, "levelup")){game->levelUp(); key2buffer(' ', buffer);}
-    if(compTabs(buffer, "plsexit")){game->getSnake()->setLives(-1); quit=true; key2buffer(' ', buffer);}
+    if(compTabs(buffer, "powerof")){game->getSnake()->setLives(-1); quit=true; key2buffer(' ', buffer);}
     if(compTabs(buffer, "lives--")){game->getSnake()->setLives(game->getSnake()->getLives()-1); key2buffer(' ', buffer);}
     if(compTabs(buffer, "iamacat")){game->getSnake()->setLives(9); key2buffer(' ', buffer);}
     if(compTabs(buffer, "baguvix")){game->getSnake()->setLives(99); key2buffer(' ', buffer);}
