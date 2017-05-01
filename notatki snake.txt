@@ -4,6 +4,7 @@ propozycje rozwoju:
 	-wyciek pamiêci w wynikach - fixd
 	-zmniejszyæ obci¹¿enie procesora?
 	-³adowanie obrazków jest jeden na drugi - ten pod spodem nie jest dealokowany czy coœ
+	-na ekranie pauzy przy wciœniêciu Esc w¹¿ robi krok (w trakcie pauzy) xD
 
 -instrukcje - bezpoœrednio w menu gry
 
