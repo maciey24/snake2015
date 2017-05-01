@@ -35,3 +35,6 @@
 # pliki ktore warto pobrac raz, ale nie warto pobierac kolejnych zmian:
 scores.txt
 save.bin
+
+# Build folder
+bin
